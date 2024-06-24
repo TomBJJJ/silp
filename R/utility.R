@@ -388,8 +388,7 @@ setMethod("summary", signature("Silp"),function(object, method = "Bootstrap", si
       cat("Partable")
       cat("\n")
       print(object@statistic)  
-      
-      
+    
     }else if(method == "BC_b"){
       org = object@origine
       #bootstrap sample

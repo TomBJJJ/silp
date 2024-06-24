@@ -33,7 +33,7 @@
 #'   fy ~  fx + fz + fx:fz
 #' "
 #' silp(model, data)
-# 
+
 # n_obs = 100
 # corr = 0.1
 # effect = 0.12
@@ -50,7 +50,7 @@
 
 # lavaan::summary(fit@pa)
 
-# fit = silp(model, data, type = "data")
+# fit = silp(model, data, type = "cov")
 # summary(fit@pa)
 # refit = resilp(fit, R = 100)
 # 

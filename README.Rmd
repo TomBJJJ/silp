@@ -43,8 +43,8 @@ model = "
  fy ~  fx + fz + fx:fz
 "
 fit = silp(model, data)
-refit = resilp(fit)
-summary(refit)
+refit = resilp(fit, 100)
+summary(fit)
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
