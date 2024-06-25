@@ -34,30 +34,6 @@
 #' "
 #' silp(model, data)
 
-# n_obs = 100
-# corr = 0.1
-# effect = 0.12
-# ld = c(1,1,1,1)
-# alp = 0.9
-# data = generate_data(n_obs, corr, effect, ld, alp)
-# model = "
-#   fy =~ y1 + start(0)*y2 + a1*y3 + y4
-#   fx =~ x1 + start(0)*x2 + a2*x3 + x4
-#   fz =~ z1 + start(0)*z2 + a3*z3 + z4
-#   fy ~  fx + a4*fz + 1 + a5*fx:fz
-#   fx ~ 1
-# "
-
-# lavaan::summary(fit@pa)
-
-# fit = silp(model, data, type = "cov")
-# summary(fit@pa)
-# refit = resilp(fit, R = 100)
-# 
-# refit@statistic
-
-# test = refit@boot
-
 silp = function(model, data, double = "double", reliability = "omega", type = "cov" ,... ){
   t0 = Sys.time()
   #model preprocess

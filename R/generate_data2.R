@@ -1,27 +1,3 @@
-#' generate_data2
-#' @description
-#' non-normal
-#'
-#' @param n_obs number of observation
-#' @param corr correlation of latent variable
-#' @param effect effect of moderator
-#' @param ld factor loading of one latent variable to its indicators
-#' @param alp reliability of latent variable
-#'
-#' @return data stimulated from arguement setting
-#' @description
-#' generate data from Cheung et al.(2021). Note the reliability used here is omega
-#'
-#'
-#' @examples
-#' n_obs = 100
-#' corr = 0.1
-#' effect = 0.12
-#' ld = c(1,1,1,1)
-#' alp = 0.9
-#' generate_data(n_obs, corr, effect, ld, alp)
-
-# 
 generate_data2 <- function(n_obs, corr, effect, ld, alp ){
   iv <- mnonr::mnonr(n_obs, 2,5, 15 ,Sigma = matrix(c(1, corr, corr, 1), 2, 2)) #nx2 mnormal variable
   iv <- cbind(iv, iv[, 1] * iv[, 2]) #a, b, ab, nx3 matrix

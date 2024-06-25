@@ -1,28 +1,3 @@
-#' summary_table
-#'
-#' @param object Result form silp or resilp
-#' @param method method of resampling choose Bootstrap or Biased corrected Bootstrap (BC_b).Default is Bootstrap.
-#' @param sig_level significant level. Default 0.05. This should be the same as the sig_level in resilp.
-#' @return summary table
-#'
-#' @examples
-#' n_obs = 100
-#' corr = 0.1
-#' effect = 0.12
-#' ld = c(1,1,1,1)
-#' alp = 0.9
-#' data = generate_data(n_obs, corr, effect, ld, alp)
-#' model = "
-#'   fy =~ y1 + y2 + y3 + y4
-#'   fx =~ x1 + x2 + x3 + x4
-#'   fz =~ z1 + z2 + z3 + z4
-#'   fy ~  fx + fz + fx:fz
-#' "
-#' fit = silp(model, data)
-#' summary_table(fit)
-#'
-
-
 summary_table = function(object, method = "Bootstrap", sig_level = 0.05){
   if(is.null(object$pa) == FALSE){
     #silp result
