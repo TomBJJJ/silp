@@ -2,9 +2,17 @@ Package: silp
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    c(person("Yi-Hsuan", "Tseng", , "r12227115@g.ntu.edu.tw", role = c("aut", "cre")), 
+      person("Po-Hsien", "Huang", , "psyphh@nccu.edu.tw", role = c("aut", "cre")))
+Description: The "silp" package utilizes the Reliability-Adjusted Product Indicator (RAPI) method to 
+    estimate effects among latent variables, thus allowing for more precise definition and analysis of 
+    mediation and moderation models. Our simulation studies reveal that while "silp" may exhibit 
+    instability with smaller sample sizes and lower reliability scores (e.g., 𝑁 = 100, 𝜔 = 0.7), 
+    implementing nearest positive definite matrix correction and bootstrap confidence interval 
+    estimation can significantly ameliorate this volatility. When these adjustments are applied, 
+    "silp" achieves estimations akin in quality to those derived from LMS. In conclusion, the "silp" 
+    package is a valuable tool for researchers seeking to explore complex relational structures between 
+    variables without resorting to commercial software.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -19,5 +27,5 @@ Imports:
     stringr
 NeedsCompilation: no
 Packaged: 2024-01-25 05:46:00 UTC; tsengyishang
-Author: First Last [aut, cre] (YOUR-ORCID-ID)
-Maintainer: First Last <first.last@example.com>
+Author: Yi-Hsuan Tseng [aut]; Po-Hsien Huang [aut] 
+Maintainer: Yi-Hsuan Tseng <r12227115@g.ntu.edu.tw>
