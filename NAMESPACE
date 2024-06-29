@@ -3,5 +3,7 @@
 export(generate_data)
 export(resilp)
 export(silp)
+import(methods)
 import(stats)
 import(stringr)
+importClassesFrom(lavaan,lavaan)

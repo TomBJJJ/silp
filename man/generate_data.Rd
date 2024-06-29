@@ -16,6 +16,10 @@ generate_data(n_obs, corr, effect, ld, alp, effect_x = 0.4, effect_z = 0.2)
 \item{ld}{factor loading of one latent variable to its indicators}
 
 \item{alp}{reliability of latent variable}
+
+\item{effect_x}{direction effect of x}
+
+\item{effect_z}{direction effect of z}
 }
 \value{
 data stimulated from arguement setting

@@ -14,8 +14,6 @@ resilp(fit, R = 300, progress = T, sig_level = 0.05)
 \item{progress}{whether there is a progress bar}
 
 \item{sig_level}{significant level. Default 0.05}
-
-\item{method}{method of resampling choose Bootstrap or Biased corrected Bootstrap (BC_b).Default is Bootstrap.}
 }
 \value{
 parameter table of bootstrap outcome of silp

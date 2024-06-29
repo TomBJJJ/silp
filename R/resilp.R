@@ -1,7 +1,6 @@
 #' resilp
 #'
 #' @param fit result object from silp
-#' @param method method of resampling choose Bootstrap or Biased corrected Bootstrap (BC_b).Default is Bootstrap.
 #' @param R number of bootstrap. Default 300
 #' @param progress whether there is a progress bar
 #' @param sig_level significant level. Default 0.05

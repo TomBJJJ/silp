@@ -52,6 +52,12 @@ Objects can be created by calls of the form \code{silp}, \code{resilp}.
 }
 \examples{
 data = generate_data(100, 0.3, 0.42, c(1,1,1,1), 0.9)
+model = "
+   fy =~ y1 + y2 + y3 + y4
+   fx =~ x1 + x2 + x3 + x4
+   fz =~ z1 + z2 + z3 + z4
+   fy ~  fx + fz + fx:fz
+  "
 fit = silp(model, data)
 refit = resilp(fit, 2000)
 summary(fit)

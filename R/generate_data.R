@@ -5,6 +5,8 @@
 #' @param effect effect of moderator
 #' @param ld factor loading of one latent variable to its indicators
 #' @param alp reliability of latent variable
+#' @param effect_x direction effect of x
+#' @param effect_z direction effect of z
 #'
 #' @return data stimulated from arguement setting
 #' @description

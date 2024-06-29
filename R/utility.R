@@ -372,6 +372,9 @@ rel_correction = function(data_material, o_eq){
 }
 
 
+
+
+
 setClass("Silp", slots = list(raw_model = "character", rapi_model = "character", 
                               time = "numeric", type = "character", raw_data = "data.frame", fa = "lavaan", 
                               reliability = "data.frame", composite_data = "data.frame", pa = "lavaan",
