@@ -3,6 +3,8 @@
 export(generate_data)
 export(resilp)
 export(silp)
+exportClasses(Silp)
+exportMethods(summary)
 import(methods)
 import(stats)
 import(stringr)
