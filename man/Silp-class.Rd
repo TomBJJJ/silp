@@ -43,4 +43,3 @@ Define silp class
       the summary result of silp or resilp. Method is for resilp only. If method = Bootstrap, percentile bootstrap result is presented. If method = BC_b, biased-correct bootstrap result is presented. }
     }
 }
-

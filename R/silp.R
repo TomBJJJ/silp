@@ -17,8 +17,6 @@
 #' @export
 #' @import stringr
 #' @import stats
-#' @import methods
-#' @importClassesFrom lavaan lavaan
 #'
 #'
 #' @examples

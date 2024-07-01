@@ -1,5 +1,6 @@
 #' Define silp class
-#'
+#' @import methods
+#' @importClassesFrom lavaan lavaan
 #' @slot raw_model character. 
 #' @slot rapi_model character. 
 #' @slot time numeric. 
