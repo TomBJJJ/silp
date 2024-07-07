@@ -1,5 +1,5 @@
 Package: silp
-Title: Conditional Process Analysis (CPA) via SEM approach
+Title: Conditional Process Analysis (CPA) via SEM Approach
 Version: 0.0.0.9000
 Authors@R: 
     c(person("Yi-Hsuan", "Tseng", , "r12227115@g.ntu.edu.tw", role = c("aut", "cre")), 
@@ -28,7 +28,9 @@ Imports:
     stringr
 NeedsCompilation: no
 Packaged: 2024-01-25 05:46:00 UTC; tsengyishang
-Author@R: Yi-Hsuan Tseng [aut]; Po-Hsien Huang [aut] 
+Author@R: 
+    c(person("Yi-Hsuan", "Tseng", , "r12227115@g.ntu.edu.tw", role = c("aut", "cre")), 
+      person("Po-Hsien", "Huang", , "psyphh@nccu.edu.tw", role = c("aut")))
 Maintainer: Yi-Hsuan Tseng <r12227115@g.ntu.edu.tw>
 URL: https://github.com/TomBJJJ/silp
 BugReports: https://github.com/TomBJJJ/silp/issues
