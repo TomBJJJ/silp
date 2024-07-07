@@ -10,36 +10,28 @@ Define silp class
 \section{Slots}{
 
 \describe{
-\item{\code{raw_model}}{character.}
+\item{\code{raw_model}}{The user-specified \code{lavaan} syntax model.}
 
-\item{\code{rapi_model}}{character.}
+\item{\code{rapi_model}}{The revised model with the RAPI method.}
 
-\item{\code{time}}{numeric.}
+\item{\code{time}}{The operation time for \code{silp} (in seconds).}
 
-\item{\code{type}}{character.}
+\item{\code{npd}}{Logical. Whether the nearest positive definite matrix is used.}
 
-\item{\code{raw_data}}{data.frame.}
+\item{\code{raw_data}}{The input data.}
 
-\item{\code{fa}}{lavaan.}
+\item{\code{fa}}{An object of class \code{lavaan} representing the CFA result.}
 
-\item{\code{reliability}}{data.frame.}
+\item{\code{reliability}}{The reliability index.}
 
-\item{\code{composite_data}}{data.frame.}
+\item{\code{composite_data}}{The composite data for RAPI.}
 
-\item{\code{pa}}{lavaan.}
+\item{\code{pa}}{The result of \code{silp}.}
 
-\item{\code{boot}}{data.frame.}
+\item{\code{boot}}{The results of \code{resilp} from R bootstrap samples.}
 
-\item{\code{statistic}}{data.frame.}
+\item{\code{origine}}{The original \code{silp} estimation.}
 
-\item{\code{origine}}{data.frame.}
-
-\item{\code{time_resilp}}{numeric.}
+\item{\code{time_resilp}}{The operation time for \code{resilp} (in seconds).}
 }}
 
-\section{Method}{
-  \describe{
-    \item{summary}{\code{signature(object = "Silp", method = Bootstrap)}: Returns
-      the summary result of silp or resilp. Method is for resilp only. If method = Bootstrap, percentile bootstrap result is presented. If method = BC_b, biased-correct bootstrap result is presented. }
-    }
-}

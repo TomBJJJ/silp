@@ -4,28 +4,37 @@
 \alias{generate_data}
 \title{generate_data}
 \usage{
-generate_data(n_obs, corr, effect, ld, alp, effect_x = 0.4, effect_z = 0.2)
+generate_data(
+  n_obs = 100,
+  corr = 0.3,
+  effect = 0.42,
+  ld = c(1, 1, 1, 1),
+  alp = 0.9,
+  effect_x = 0.4,
+  effect_z = 0.2
+)
 }
 \arguments{
-\item{n_obs}{number of observation}
+\item{n_obs}{Integer. The number of observations.}
 
-\item{corr}{correlation of latent variable}
+\item{corr}{Numeric. The correlation of the latent variables.}
 
-\item{effect}{effect of moderator}
+\item{effect}{Numeric. The effect of the moderator.}
 
-\item{ld}{factor loading of one latent variable to its indicators}
+\item{ld}{Numeric. The factor loading of the latent variable to its indicators.}
 
-\item{alp}{reliability of latent variable}
+\item{alp}{Numeric. The reliability of the latent variable.}
 
-\item{effect_x}{direction effect of x}
+\item{effect_x}{Numeric. The direct effect of x.}
 
-\item{effect_z}{direction effect of z}
+\item{effect_z}{Numeric. The direct effect of z.}
 }
 \value{
-data stimulated from arguement setting
+A dataset simulated from the argument settings.
 }
 \description{
-generate data from Cheung et al.(2021). Note the reliability used here is omega
+Generates data based on the simulation settings provided by Cheung et al. (2021).
+Note that the reliability used here is omega.
 }
 \examples{
 n_obs = 100

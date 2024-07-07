@@ -3,7 +3,7 @@ Title: Conditional Process Analysis (CPA) via SEM approach
 Version: 0.0.0.9000
 Authors@R: 
     c(person("Yi-Hsuan", "Tseng", , "r12227115@g.ntu.edu.tw", role = c("aut", "cre")), 
-      person("Po-Hsien", "Huang", , "psyphh@nccu.edu.tw", role = c("aut", "cre")))
+      person("Po-Hsien", "Huang", , "psyphh@nccu.edu.tw", role = c("aut")))
 Description: The "silp" package utilizes the Reliability-Adjusted Product Indicator (RAPI) method to 
     estimate effects among latent variables, thus allowing for more precise definition and analysis of 
     mediation and moderation models. Our simulation studies reveal that while "silp" may exhibit 
@@ -28,5 +28,5 @@ Imports:
     stringr
 NeedsCompilation: no
 Packaged: 2024-01-25 05:46:00 UTC; tsengyishang
-Author: Yi-Hsuan Tseng [aut]; Po-Hsien Huang [aut] 
+Author@R: Yi-Hsuan Tseng [aut]; Po-Hsien Huang [aut] 
 Maintainer: Yi-Hsuan Tseng <r12227115@g.ntu.edu.tw>

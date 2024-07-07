@@ -1,19 +1,21 @@
 #' generate_data
-#'
-#' @param n_obs number of observation
-#' @param corr correlation of latent variable
-#' @param effect effect of moderator
-#' @param ld factor loading of one latent variable to its indicators
-#' @param alp reliability of latent variable
-#' @param effect_x direction effect of x
-#' @param effect_z direction effect of z
-#'
-#' @return data stimulated from arguement setting
+#' 
 #' @description
-#' generate data from Cheung et al.(2021). Note the reliability used here is omega
+#' Generates data based on the simulation settings provided by Cheung et al. (2021). 
+#' Note that the reliability used here is omega.
+#' 
+#' @param n_obs Integer. The number of observations.
+#' @param corr Numeric. The correlation of the latent variables.
+#' @param effect Numeric. The effect of the moderator.
+#' @param ld Numeric. The factor loading of the latent variable to its indicators.
+#' @param alp Numeric. The reliability of the latent variable.
+#' @param effect_x Numeric. The direct effect of x.
+#' @param effect_z Numeric. The direct effect of z.
+#'
+#' @return
+#' A dataset simulated from the argument settings.
 #'
 #' @export
-#'
 #' @examples
 #' n_obs = 100
 #' corr = 0.1
@@ -22,10 +24,7 @@
 #' alp = 0.9
 #' generate_data(n_obs, corr, effect, ld, alp)
 
-
-
-
-generate_data <- function(n_obs, corr, effect, ld, alp, effect_x = 0.4, effect_z = 0.2 ){
+generate_data <- function(n_obs = 100, corr = 0.3, effect = 0.42, ld = c(1,1,1,1), alp = 0.9, effect_x = 0.4, effect_z = 0.2 ){
   iv <- MASS::mvrnorm(n_obs, mu = c(0, 0), Sigma = matrix(c(1, corr, corr, 1), 2, 2)) #nx2 mnormal variable
   iv <- cbind(iv, iv[, 1] * iv[, 2]) #a, b, ab, nx3 matrix
 

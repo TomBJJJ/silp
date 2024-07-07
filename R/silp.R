@@ -1,18 +1,20 @@
 #' silp
 #'
-#' @param model a lavaan syntax model
-#' @param data dataset for lavaan sem
-#' @param double Single or Double. whether double mean center is used for product indicator. Default double
-#' @param reliability  which kind of reliability is used to estimate error variance If "alpha", Cronbach alpha reliability
-#'               is used. "omega" for omega reliability is used. Default omega
-#' @param type which type of input is used in lavaan sem, default cov (covariance matrix) or data(raw data)
-#' @param ... other parameters pass to lavaan sem.
-#' @return
-#' raw data is the original data passed to arg data.
-#' fa is the cfa model of lavaan class object.
-#' reliability is the estimated reliability form data
-#' new attribute include raw_model, rapi_model, silp_time
+#' @description
+#' This function extends the `lavaan` function, allowing users to define moderation effects using the symbol ":". 
+#' The RAPI method is used to estimate moderation effects.
 #' 
+#' @param model A `lavaan` syntax model with extension. The notation ":" implies interaction between two variables (see Example).
+#' @param data The dataset for `lavaan` SEM.
+#' @param center Character. Whether single or double mean centering is used for the product indicator. Default is "double".
+#' @param tau.eq Logical. Specifies the type of reliability used to estimate error variance. If `TRUE`, Cronbach's alpha reliability is used. 
+#' If `FALSE`, omega reliability is used. Default is `FALSE`.
+#' @param npd Logical. Specifies the type of input used in `lavaan` SEM. Default is `FALSE` for raw data or `TRUE` for a covariance matrix. 
+#' Applying a covariance matrix can resolve problems of a non-positive definite covariance matrix. 
+#' If `TRUE`, `resilp` should be used to obtain reliable inference.
+#' @param ... Other parameters passed to the `lavaan` SEM function.#' 
+#' @return
+#' An "Silp" class object.
 #'
 #' @export
 #' @import stringr
@@ -33,25 +35,23 @@
 #'   fy ~  fx + fz + fx:fz
 #' "
 #' silp(model, data)
-
-
+# 
 # n_obs = 100
 # corr = 0.1
 # effect = 0.12
 # ld = c(1,1,1,1)
 # alp = 0.9
-# data = generate_data(n_obs, corr, effect, ld, alp)
+# data = generate_data()
 # model = "
 #   fy =~ y1 + y2 + y3 + y4
 #   fx =~ x1 + x2 + x3 + x4
 #   fz =~ z1 + z2 + z3 + z4
 #   fy ~  fx + fz + fx:fz
 # "
-# test = silp(model, data)
-# summary(test)
+# fit = silp(model, data)
+# refit = resilp(fit)
 
-
-silp = function(model, data, double = "double", reliability = "omega", type = "cov" ,... ){
+silp = function(model, data, center = "double", tau.eq = F, npd = F ,... ){
   t0 = Sys.time()
   #model preprocess
   model. = parsing_model(model)
@@ -59,7 +59,6 @@ silp = function(model, data, double = "double", reliability = "omega", type = "c
   eq = model.[str_detect(model., ":=") == F]
   #moderator eq
   mod_eq= eq[str_detect(eq, ":") == TRUE]
-  
   
   for (l in 1:length(mod_eq)) {
     tempt = str_split_1(mod_eq[l], "~")
@@ -69,15 +68,13 @@ silp = function(model, data, double = "double", reliability = "omega", type = "c
     }
   }
   
-    
   #ov eq
   o_eq = eq[str_detect(eq, "=~") == TRUE]
-  
-  
+
   #CFA model
   MD = lavaan::cfa(str_c(o_eq, sep = "/n"), data,  bounds =  "pos.var")
-  Rel = as.data.frame(semTools::reliability(MD, what = reliability))
-  
+  Rel = semTools::compRelSEM(MD, tau.eq = tau.eq, return.df = T)
+
   #lv regression
   l_eq = eq[str_detect(eq, pattern = "~~") == FALSE &
               str_detect(eq, pattern = "=~") == FALSE]
@@ -103,7 +100,7 @@ silp = function(model, data, double = "double", reliability = "omega", type = "c
                 , "pa" = fit ))
   }
   
-  data_material = exo_moderator(l_eq, o_eq, mod_eq, Rel = Rel, model, data, double = double)
+  data_material = exo_moderator(l_eq, o_eq, mod_eq, Rel = Rel, model, data, center = center)
   # data_material$ps = data_material$ps + 3
   
   #update measurement part
@@ -122,7 +119,7 @@ silp = function(model, data, double = "double", reliability = "omega", type = "c
   
   
   
-  if(type == "cov"){
+  if(npd == T){
 
     if(min(eigen(sample_cov_r)$value) < 0){
       sample_cov_r_ap = sample_cov_r
@@ -165,7 +162,7 @@ silp = function(model, data, double = "double", reliability = "omega", type = "c
     
   }
     
-  }else if(type == "data"){
+  }else if(npd == F){
     
     u_model = str_replace_all(u_model, pattern = ":", replacement = "_")
     u_model = paste(c(u_model, usr_d), collapse = "\n")
@@ -174,16 +171,13 @@ silp = function(model, data, double = "double", reliability = "omega", type = "c
     
   }
 
-  
   t1 = Sys.time() - t0
   units(t1) = "secs"
   
-  result = new("Silp",raw_model = model,  rapi_model = u_model, time = as.numeric(t1), type = type,
+  result = new("Silp",raw_model = model,  rapi_model = u_model, time = as.numeric(t1), npd = npd,
       raw_data = data, fa = MD, reliability = data_material$reliability, composite_data = data_material$ps,
       pa = fit)
   
   return(result)
 }
-
-
 

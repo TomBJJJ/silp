@@ -6,7 +6,7 @@ parsing_model = function(model){
   return(eq)
 }
 
-exo_moderator = function(l_eq, o_eq, mod_eq, Rel, model, data, double ){
+exo_moderator = function(l_eq, o_eq, mod_eq, Rel, model, data, center ){
   #find moderator variables
   md_v = ""
   l_v = ""
@@ -71,11 +71,11 @@ exo_moderator = function(l_eq, o_eq, mod_eq, Rel, model, data, double ){
 
     
     #generate product of moderator variables
-    if (double == "double"){
+    if (center == "double"){
       ps[paste("pool_", l_v[1],":",l_v[2], sep = "")] = (v1 - colMeans(v1))*(v2 - colMeans(v2))
       - colMeans((v1 - colMeans(v1))*(v2 - colMeans(v2)))
 
-    }else if(double == "single"){
+    }else if(center == "single"){
       ps[paste("pool_", l_v[1],":",l_v[2], sep = "")] = (v1 - colMeans(v1))*(v2 - colMeans(v2))
     }
 

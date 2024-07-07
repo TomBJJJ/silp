@@ -4,22 +4,22 @@
 \alias{resilp}
 \title{resilp}
 \usage{
-resilp(fit, R = 300, progress = T, sig_level = 0.05)
+resilp(fit, R = 2000, progress = T)
 }
 \arguments{
-\item{fit}{result object from silp}
+\item{fit}{A result object from \code{silp}.}
 
-\item{R}{number of bootstrap. Default 300}
+\item{R}{Integer. The number of bootstrap samples. Default is 2000.}
 
-\item{progress}{whether there is a progress bar}
-
-\item{sig_level}{significant level. Default 0.05}
+\item{progress}{Logical. Whether to display a progress bar. Default is \code{FALSE}.}
 }
 \value{
-parameter table of bootstrap outcome of silp
+An object of class "Silp".
 }
 \description{
-resilp
+An extended function from \code{silp}, applying the bootstrap method to obtain standard error estimation.
+Note: When using \code{silp} with the nearest positive definite matrix (npd = TRUE), this function should be used to obtain
+reliable inference.
 }
 \examples{
 n_obs = 100

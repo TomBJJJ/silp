@@ -4,30 +4,30 @@
 \alias{silp}
 \title{silp}
 \usage{
-silp(model, data, double = "double", reliability = "omega", type = "cov", ...)
+silp(model, data, center = "double", tau.eq = F, npd = F, ...)
 }
 \arguments{
-\item{model}{a lavaan syntax model}
+\item{model}{A \code{lavaan} syntax model with extension. The notation ":" implies interaction between two variables (see Example).}
 
-\item{data}{dataset for lavaan sem}
+\item{data}{The dataset for \code{lavaan} SEM.}
 
-\item{double}{Single or Double. whether double mean center is used for product indicator. Default double}
+\item{center}{Character. Whether single or double mean centering is used for the product indicator. Default is "double".}
 
-\item{reliability}{which kind of reliability is used to estimate error variance If "alpha", Cronbach alpha reliability
-is used. "omega" for omega reliability is used. Default omega}
+\item{tau.eq}{Logical. Specifies the type of reliability used to estimate error variance. If \code{TRUE}, Cronbach's alpha reliability is used.
+If \code{FALSE}, omega reliability is used. Default is \code{FALSE}.}
 
-\item{type}{which type of input is used in lavaan sem, default cov (covariance matrix) or data(raw data)}
+\item{npd}{Logical. Specifies the type of input used in \code{lavaan} SEM. Default is \code{FALSE} for raw data or \code{TRUE} for a covariance matrix.
+Applying a covariance matrix can resolve problems of a non-positive definite covariance matrix.
+If \code{TRUE}, \code{resilp} should be used to obtain reliable inference.}
 
-\item{...}{other parameters pass to lavaan sem.}
+\item{...}{Other parameters passed to the \code{lavaan} SEM function.#'}
 }
 \value{
-raw data is the original data passed to arg data.
-fa is the cfa model of lavaan class object.
-reliability is the estimated reliability form data
-new attribute include raw_model, rapi_model, silp_time
+An "Silp" class object.
 }
 \description{
-silp
+This function extends the \code{lavaan} function, allowing users to define moderation effects using the symbol ":".
+The RAPI method is used to estimate moderation effects.
 }
 \examples{
 n_obs = 100
