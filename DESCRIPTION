@@ -29,3 +29,5 @@ Imports:
 NeedsCompilation: no
 Packaged: 2024-01-25 05:46:00 UTC; tsengyishang
 Maintainer: Yi-Hsuan Tseng <r12227115@g.ntu.edu.tw>
+URL: https://github.com/TomBJJJ/silp
+BugReports: https://github.com/TomBJJJ/silp/issues
