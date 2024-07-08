@@ -34,7 +34,7 @@ A dataset simulated from the argument settings.
 }
 \description{
 Generates data based on the simulation settings provided by Cheung et al. (2021).
-Note that the reliability used here is omega.
+Note that the reliability used here is \code{omega}.
 }
 \examples{
 n_obs = 100

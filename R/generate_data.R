@@ -2,7 +2,7 @@
 #' 
 #' @description
 #' Generates data based on the simulation settings provided by Cheung et al. (2021). 
-#' Note that the reliability used here is omega.
+#' Note that the reliability used here is `omega`.
 #' 
 #' @param n_obs Integer. The number of observations.
 #' @param corr Numeric. The correlation of the latent variables.
