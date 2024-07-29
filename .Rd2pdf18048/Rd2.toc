@@ -1,6 +1,0 @@
-\contentsline {subsection}{generate\_data}{2}{page.2}
-\contentsline {subsection}{resilp}{3}{page.3}
-\contentsline {subsection}{silp}{3}{page.3}
-\contentsline {subsection}{Silp-class}{4}{page.4}
-\contentsline {subsection}{summary-methods}{5}{page.5}
-\contentsline {chapter}{Index}{6}{page.6}
