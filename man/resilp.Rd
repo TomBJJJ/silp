@@ -4,7 +4,7 @@
 \alias{resilp}
 \title{resilp}
 \usage{
-resilp(fit, R = 2000, progress = T)
+resilp(fit, R = 2000, progress = TRUE)
 }
 \arguments{
 \item{fit}{A result object from \code{silp}.}

@@ -4,7 +4,7 @@
 \alias{silp}
 \title{silp}
 \usage{
-silp(model, data, center = "double", tau.eq = F, npd = F, ...)
+silp(model, data, center = "double", tau.eq = FALSE, npd = FALSE, ...)
 }
 \arguments{
 \item{model}{A \code{lavaan} syntax model with extension. The notation ":" implies interaction between two variables (see Example).}
