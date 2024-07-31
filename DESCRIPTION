@@ -1,4 +1,4 @@
-Package: "silp"
+Package: silp
 Title: Conditional Process Analysis (CPA) via structural equation modeling(SEM) Approach
 Version: 1.0.0
 Authors@R: 
