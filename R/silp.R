@@ -35,7 +35,7 @@
 #'   fy ~  fx + fz + fx:fz
 #' "
 #' silp(model, data)
-# 
+
 
 
 silp = function(model, data, center = "double", tau.eq = FALSE, npd = FALSE ,... ){
