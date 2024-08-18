@@ -7,7 +7,7 @@
 #' @param model A `lavaan` syntax model with extension. The notation ":" implies interaction between two variables (see Example).
 #' @param data The dataset for `lavaan` SEM.
 #' @param center Character. Whether single or double mean centering is used for the product indicator. Default is "double".
-#' @param tau.eq Logical. Specifies the type of reliability used to estimate error variance. If `TRUE`, Cronbach's alpha reliability is used. 
+#' @param alp Logical. Specifies the type of reliability used to estimate error variance. If `TRUE`, Cronbach's alpha reliability is used. 
 #' If `FALSE`, omega reliability is used. Default is `FALSE`.
 #' @param npd Logical. Specifies the type of input used in `lavaan` SEM. Default is `FALSE` for raw data or `TRUE` for a covariance matrix. 
 #' Applying a covariance matrix can resolve problems of a non-positive definite covariance matrix. 
@@ -37,8 +37,7 @@
 #' silp(model, data)
 
 
-
-silp = function(model, data, center = "double", tau.eq = FALSE, npd = FALSE ,... ){
+silp = function(model, data, center = "double", alp = FALSE, npd = FALSE ,... ){
   t0 = Sys.time()
   #model preprocess
   model. = parsing_model(model)
@@ -60,7 +59,7 @@ silp = function(model, data, center = "double", tau.eq = FALSE, npd = FALSE ,...
 
   #CFA model
   MD = lavaan::cfa(str_c(o_eq, sep = "/n"), data,  bounds =  "pos.var")
-  Rel = semTools::compRelSEM(MD, tau.eq = tau.eq, return.df = T)
+  Rel = semTools::compRelSEM(MD, tau.eq = alp, return.df = T)
 
   #lv regression
   l_eq = eq[str_detect(eq, pattern = "~~") == FALSE &
@@ -161,7 +160,7 @@ silp = function(model, data, center = "double", tau.eq = FALSE, npd = FALSE ,...
   t1 = Sys.time() - t0
   units(t1) = "secs"
   
-  result = new("Silp",raw_model = model,  rapi_model = u_model, time = as.numeric(t1), npd = npd,
+  result = new("Silp",raw_model = model,  rapi_model = u_model, time = as.numeric(t1),alp = alp, npd = npd,
       raw_data = data, fa = MD, reliability = data_material$reliability, composite_data = data_material$ps,
       pa = fit)
   
