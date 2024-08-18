@@ -4,7 +4,7 @@
 \alias{silp}
 \title{silp}
 \usage{
-silp(model, data, center = "double", tau.eq = FALSE, npd = FALSE, ...)
+silp(model, data, center = "double", alp = FALSE, npd = FALSE, ...)
 }
 \arguments{
 \item{model}{A \code{lavaan} syntax model with extension. The notation ":" implies interaction between two variables (see Example).}
@@ -13,7 +13,7 @@ silp(model, data, center = "double", tau.eq = FALSE, npd = FALSE, ...)
 
 \item{center}{Character. Whether single or double mean centering is used for the product indicator. Default is "double".}
 
-\item{tau.eq}{Logical. Specifies the type of reliability used to estimate error variance. If \code{TRUE}, Cronbach's alpha reliability is used.
+\item{alp}{Logical. Specifies the type of reliability used to estimate error variance. If \code{TRUE}, Cronbach's alpha reliability is used.
 If \code{FALSE}, omega reliability is used. Default is \code{FALSE}.}
 
 \item{npd}{Logical. Specifies the type of input used in \code{lavaan} SEM. Default is \code{FALSE} for raw data or \code{TRUE} for a covariance matrix.

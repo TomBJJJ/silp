@@ -16,6 +16,8 @@ Define silp class
 
 \item{\code{time}}{The operation time for \code{silp} (in seconds).}
 
+\item{\code{alp}}{type of reliability used.}
+
 \item{\code{npd}}{Logical. Whether the nearest positive definite matrix is used.}
 
 \item{\code{raw_data}}{The input data.}
