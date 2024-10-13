@@ -27,13 +27,13 @@
 #' fit = silp(model, data)
 #' resilp(fit, R = 10)
 
-resilp = function(fit, R = 2000, progress = TRUE){
+resilp = function(fit, R = 2000, progress = T){
   sta = Sys.time()
   ind_boot = replicate(R, sample(1:nrow(fit@raw_data), nrow(fit@raw_data), replace = T))
   ind_boot = as.list(as.data.frame(ind_boot))
 
   bt_silp = function(ind_boot){
-    result = silp(fit@raw_model, fit@raw_data[as.numeric(ind_boot),],alp = fit@alp, npd = fit@npd)
+    result = silp(fit@raw_model, fit@raw_data[as.numeric(ind_boot),] , npd = fit@npd)
     res = result@pa
     
     if(res@optim$warn.txt == ""){
@@ -42,7 +42,7 @@ resilp = function(fit, R = 2000, progress = TRUE){
     }else{
       while (res@optim$warn.txt != "") {
         ind = replicate(1, sample(1:nrow(fit@raw_data), nrow(fit@raw_data), replace = T))
-        res = silp(fit@raw_model, fit@raw_data[as.numeric(ind),],alp = fit@alp, npd = fit@npd)$pa
+        res = silp(fit@raw_model, fit@raw_data[as.numeric(ind),] , npd = fit@npd)$pa
       }
       return("lav" = lavaan::partable(res)$est )
     }

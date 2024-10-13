@@ -7,7 +7,7 @@
 #' @param model A `lavaan` syntax model with extension. The notation ":" implies interaction between two variables (see Example).
 #' @param data The dataset for `lavaan` SEM.
 #' @param center Character. Whether single or double mean centering is used for the product indicator. Default is "double".
-#' @param alp Logical. Specifies the type of reliability used to estimate error variance. If `TRUE`, Cronbach's alpha reliability is used. 
+#' @param tau.eq Logical. Specifies the type of reliability used to estimate error variance. If `TRUE`, Cronbach's alpha reliability is used. 
 #' If `FALSE`, omega reliability is used. Default is `FALSE`.
 #' @param npd Logical. Specifies the type of input used in `lavaan` SEM. Default is `FALSE` for raw data or `TRUE` for a covariance matrix. 
 #' Applying a covariance matrix can resolve problems of a non-positive definite covariance matrix. 
@@ -35,9 +35,24 @@
 #'   fy ~  fx + fz + fx:fz
 #' "
 #' silp(model, data)
+# 
+# n_obs = 100
+# corr = 0.1
+# effect = 0.12
+# ld = c(1,1,1,1)
+# alp = 0.9
+# data = generate_data()
+# model = "
+#   fy =~ y1 + y2 + y3 + y4
+#   fx =~ x1 + x2 + x3 + x4
+#   fz =~ z1 + z2 + z3 + z4
+#   fy ~  fx + fz + fx:fz
+# "
+# fit = silp(model, data)
+# refit = resilp(fit)
+# silp(model, data)
 
-
-silp = function(model, data, center = "double", alp = FALSE, npd = FALSE ,... ){
+silp = function(model, data, center = "double", tau.eq = F, npd = F ,... ){
   t0 = Sys.time()
   #model preprocess
   model. = parsing_model(model)
@@ -45,22 +60,32 @@ silp = function(model, data, center = "double", alp = FALSE, npd = FALSE ,... ){
   eq = model.[str_detect(model., ":=") == F]
   #moderator eq
   mod_eq= eq[str_detect(eq, ":") == TRUE]
-  
-  for (l in 1:length(mod_eq)) {
-    tempt = str_split_1(mod_eq[l], "~")
-    if(str_detect(tempt[1],":") == T & str_detect(tempt[2],"1") == T){
-      warning("current function don't support intercept of moderation efffect")
-      break()
-    }
-  }
-  
   #ov eq
   o_eq = eq[str_detect(eq, "=~") == TRUE]
+  
+  
+  
+  #no moderation effect
+  if(length(mod_eq) > 0){
+    for (l in 1:length(mod_eq)) {
+      tempt = str_split_1(mod_eq[l], "~")
+      if(str_detect(tempt[1],":") == T & str_detect(tempt[2],"1") == T){
+        warning("current function don't support intercept of moderation efffect")
+        break()
+      }
+    }
+  }else{
+    warning("No moedration effect detected")
+  }
+  
+
 
   #CFA model
   MD = lavaan::cfa(str_c(o_eq, sep = "/n"), data,  bounds =  "pos.var")
-  Rel = semTools::compRelSEM(MD, tau.eq = alp, return.df = T)
+  Rel = semTools::compRelSEM(MD, tau.eq = tau.eq, return.df = T)
 
+  
+  
   #lv regression
   l_eq = eq[str_detect(eq, pattern = "~~") == FALSE &
               str_detect(eq, pattern = "=~") == FALSE]
@@ -160,7 +185,7 @@ silp = function(model, data, center = "double", alp = FALSE, npd = FALSE ,... ){
   t1 = Sys.time() - t0
   units(t1) = "secs"
   
-  result = new("Silp",raw_model = model,  rapi_model = u_model, time = as.numeric(t1),alp = alp, npd = npd,
+  result = new("Silp",raw_model = model,  rapi_model = u_model, time = as.numeric(t1), npd = npd,
       raw_data = data, fa = MD, reliability = data_material$reliability, composite_data = data_material$ps,
       pa = fit)
   
