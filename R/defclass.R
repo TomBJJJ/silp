@@ -24,7 +24,7 @@ setClass("Silp", slots = list(raw_model = "character", rapi_model = "character",
                               time_resilp = "numeric"))
 
 setMethod("summary", signature("Silp"),function(object, method = "Bootstrap", sig_level = 0.05){ 
-  print(object@pa) 
+  print(summary(object@pa)) 
 
   if(length(object@time_resilp) != 0){
     b_est = object@boot[,-c(1:11)]

@@ -35,22 +35,7 @@
 #'   fy ~  fx + fz + fx:fz
 #' "
 #' silp(model, data)
-# 
-# n_obs = 100
-# corr = 0.1
-# effect = 0.12
-# ld = c(1,1,1,1)
-# alp = 0.9
-# data = generate_data()
-# model = "
-#   fy =~ y1 + y2 + y3 + y4
-#   fx =~ x1 + x2 + x3 + x4
-#   fz =~ z1 + z2 + z3 + z4
-#   fy ~  fx + fz + fx:fz
-# "
-# fit = silp(model, data)
-# refit = resilp(fit)
-# silp(model, data)
+
 
 silp = function(model, data, center = "double", tau.eq = F, npd = F ,... ){
   t0 = Sys.time()
