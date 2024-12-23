@@ -46,17 +46,24 @@ silp = function(model, data, center = "double", alp = FALSE, npd = FALSE ,... ){
   #moderator eq
   mod_eq= eq[str_detect(eq, ":") == TRUE]
   
-  for (l in 1:length(mod_eq)) {
-    tempt = str_split_1(mod_eq[l], "~")
-    if(str_detect(tempt[1],":") == T & str_detect(tempt[2],"1") == T){
-      warning("current function don't support intercept of moderation efffect")
-      break()
-    }
-  }
-  
   #ov eq
   o_eq = eq[str_detect(eq, "=~") == TRUE]
 
+  
+  #no moderation effect
+  if(length(mod_eq) > 0){
+    for (l in 1:length(mod_eq)) {
+      tempt = str_split_1(mod_eq[l], "~")
+      if(str_detect(tempt[1],":") == T & str_detect(tempt[2],"1") == T){
+        warning("current function don't support intercept of moderation efffect")
+        break()
+      }
+    }
+  }else{
+    warning("No moedration effect detected")
+  }
+  
+  
   #CFA model
   MD = lavaan::cfa(str_c(o_eq, sep = "/n"), data,  bounds =  "pos.var")
   Rel = semTools::compRelSEM(MD, tau.eq = alp, return.df = T)
