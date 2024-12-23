@@ -7,7 +7,7 @@ Authors@R:
 Description: The "silp" package utilizes the Reliability-Adjusted Product Indicator (RAPI) method to 
     estimate effects among latent variables, thus allowing for more precise definition and analysis of 
     mediation and moderation models. Our simulation studies reveal that while "silp" may exhibit 
-    instability with smaller sample sizes and lower reliability scores (e.g., 𝑁 = 100, 𝜔 = 0.7), 
+    instability with smaller sample sizes and lower reliability scores (e.g., N = 100, 'omega' = 0.7), 
     implementing nearest positive definite matrix correction and bootstrap confidence interval 
     estimation can significantly ameliorate this volatility. When these adjustments are applied, 
     "silp" achieves estimations akin in quality to those derived from LMS. In conclusion, the "silp" 
