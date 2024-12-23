@@ -45,10 +45,8 @@ silp = function(model, data, center = "double", tau.eq = F, npd = F ,... ){
   eq = model.[str_detect(model., ":=") == F]
   #moderator eq
   mod_eq= eq[str_detect(eq, ":") == TRUE]
-<<<<<<< HEAD
-=======
+
   
->>>>>>> 1223
   #ov eq
   o_eq = eq[str_detect(eq, "=~") == TRUE]
   
