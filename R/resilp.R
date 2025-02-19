@@ -52,7 +52,7 @@ resilp = function(fit, R = 2000, progress = T){
                       ,.progress = progress)  
   
   b_est = do.call(cbind, b_silp)
-  #2:11
+  
   
   b_est = cbind(lavaan::partable(fit@pa)[,2:12], b_est)
   fin = Sys.time() - sta 
