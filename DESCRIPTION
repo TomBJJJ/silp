@@ -14,7 +14,7 @@ Description: utilizes the Reliability-Adjusted Product Indicator (RAPI) method t
     package is a valuable tool for researchers seeking to explore complex relational structures between 
     variables without resorting to commercial software.
     Cheung et al.(2021)<doi:10.1007/s10869-020-09717-0>
-    Hsiao et al.(2018)<doi:10.1177/0013164416679877>
+    Hsiao et al.(2018)<doi:10.1177/0013164416679877>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

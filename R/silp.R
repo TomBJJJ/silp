@@ -37,6 +37,19 @@
 #' silp(model, data)
 
 
+# n_obs = 100
+# corr = 0.1
+# effect = 0.12
+# ld = c(1,1,1,1)
+# alp = 0.9
+# data = generate_data(n_obs, corr, effect, ld, alp)
+# model = "
+#   fy =~ y1 + y2 + y3 + y4
+#   fx =~ x1 + x2 + x3 + x4
+#   fz =~ z1 + z2 + z3 + z4
+#   fy ~  fx + fz
+# "
+
 silp = function(model, data, center = "double", tau.eq = F, npd = F ,... ){
   t0 = Sys.time()
   #model preprocess
@@ -65,21 +78,6 @@ silp = function(model, data, center = "double", tau.eq = F, npd = F ,... ){
     warning("No moedration effect detected")
   }
   
-
-
-  
-  #no moderation effect
-  if(length(mod_eq) > 0){
-    for (l in 1:length(mod_eq)) {
-      tempt = str_split_1(mod_eq[l], "~")
-      if(str_detect(tempt[1],":") == T & str_detect(tempt[2],"1") == T){
-        warning("current function don't support intercept of moderation efffect")
-        break()
-      }
-    }
-  }else{
-    warning("No moedration effect detected")
-  }
   
   
   #CFA model
