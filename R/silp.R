@@ -37,7 +37,7 @@
 #' silp(model, data)
 
 
-# n_obs = 100
+# n_obs = 10000
 # corr = 0.1
 # effect = 0.12
 # ld = c(1,1,1,1)
@@ -47,7 +47,7 @@
 #   fy =~ y1 + y2 + y3 + y4
 #   fx =~ x1 + x2 + x3 + x4
 #   fz =~ z1 + z2 + z3 + z4
-#   fy ~  fx + fz
+#   fy ~  fx + fz + fx:fz
 # "
 
 silp = function(model, data, center = "double", tau.eq = F, npd = F ,... ){
@@ -112,7 +112,6 @@ silp = function(model, data, center = "double", tau.eq = F, npd = F ,... ){
   }
   
   data_material = exo_moderator(l_eq, o_eq, mod_eq, Rel = Rel, model, data, center = center)
-  # data_material$ps = data_material$ps + 3
   
   #update measurement part
   u_model = indicator_update(eq, data_material, o_eq)

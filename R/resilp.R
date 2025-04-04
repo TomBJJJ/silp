@@ -27,6 +27,8 @@
 #' fit = silp(model, data)
 #' resilp(fit, R = 10)
 
+
+
 resilp = function(fit, R = 2000, progress = T){
   sta = Sys.time()
   ind_boot = replicate(R, sample(1:nrow(fit@raw_data), nrow(fit@raw_data), replace = T))

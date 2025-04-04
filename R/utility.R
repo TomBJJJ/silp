@@ -72,8 +72,8 @@ exo_moderator = function(l_eq, o_eq, mod_eq, Rel, model, data, center ){
     
     #generate product of moderator variables
     if (center == "double"){
-      ps[paste("pool_", l_v[1],":",l_v[2], sep = "")] = (v1 - colMeans(v1))*(v2 - colMeans(v2))
-      - colMeans((v1 - colMeans(v1))*(v2 - colMeans(v2)))
+      ps[paste("pool_", l_v[1],":",l_v[2], sep = "")] = 
+        (v1 - colMeans(v1))*(v2 - colMeans(v2)) - as.numeric(colMeans((v1 - colMeans(v1))*(v2 - colMeans(v2))))
 
     }else if(center == "single"){
       ps[paste("pool_", l_v[1],":",l_v[2], sep = "")] = (v1 - colMeans(v1))*(v2 - colMeans(v2))
