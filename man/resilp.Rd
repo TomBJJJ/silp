@@ -4,7 +4,7 @@
 \alias{resilp}
 \title{resilp}
 \usage{
-resilp(fit, R = 2000, progress = T)
+resilp(fit, R = 2000, progress = T, max_try = 100)
 }
 \arguments{
 \item{fit}{A result object from \code{silp}.}
@@ -12,6 +12,8 @@ resilp(fit, R = 2000, progress = T)
 \item{R}{Integer. The number of bootstrap samples. Default is 2000.}
 
 \item{progress}{Logical. Whether to display a progress bar. Default is \code{FALSE}.}
+
+\item{max_try}{Maximum resampling attempts per bootstrap sample.}
 }
 \value{
 An object of class "Silp".

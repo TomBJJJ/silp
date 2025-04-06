@@ -33,5 +33,7 @@ Define silp class
 \item{\code{origine}}{The original \code{silp} estimation.}
 
 \item{\code{time_resilp}}{The operation time for \code{resilp} (in seconds).}
+
+\item{\code{tech}}{detail of \code{resilp} operation}
 }}
 
