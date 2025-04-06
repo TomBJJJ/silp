@@ -7,6 +7,7 @@
 #' @param fit A result object from `silp`.
 #' @param R Integer. The number of bootstrap samples. Default is 2000.
 #' @param progress Logical. Whether to display a progress bar. Default is `FALSE`.
+#' @param max_try Maximum resampling attempts per bootstrap sample.
 #' @return
 #' An object of class "Silp".
 #' @export
