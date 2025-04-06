@@ -29,46 +29,111 @@
 
 
 
-resilp = function(fit, R = 2000, progress = T){
+
+
+resilp = function(fit, R = 2000, progress = T, max_try = 100){
+
   sta = Sys.time()
   ind_boot = replicate(R, sample(1:nrow(fit@raw_data), nrow(fit@raw_data), replace = T))
   ind_boot = as.list(as.data.frame(ind_boot))
 
-  bt_silp = function(ind_boot){
-    result = silp(fit@raw_model, fit@raw_data[as.numeric(ind_boot),] , npd = fit@npd)
-    res = result@pa
+
+  #test
+  bt_silp <- function(ind_boot, fit, max_try = max_try) {
+    success <- FALSE
+    try_count <- 1
+    res <- NULL
+    has_warning <- FALSE
+    has_resample <- FALSE  
     
-    if(res@optim$warn.txt == ""){
-      return("lav" = lavaan::partable(res)$est )
+    while (!success && try_count <= max_try) {
+      boot_data <- fit@raw_data[as.numeric(ind_boot), ]
+      has_warning <- FALSE  # 每輪都重設
       
-    }else{
-      while (res@optim$warn.txt != "") {
-        ind = replicate(1, sample(1:nrow(fit@raw_data), nrow(fit@raw_data), replace = T))
-        res = silp(fit@raw_model, fit@raw_data[as.numeric(ind),] , npd = fit@npd)$pa
+      result <- tryCatch({
+        
+        withCallingHandlers({
+          silp(fit@raw_model, boot_data, npd = fit@npd)
+          
+          
+        }, warning = function(w) {
+          # message("[silp warning] try ", try_count, " | ", conditionMessage(w))
+          has_warning <<- TRUE
+          invokeRestart("muffleWarning")
+        })
+      }, error = function(e) {
+        message("[silp error] try ", try_count, " | ", e$message)
+        return(NULL)
+      })
+      
+      # 如果有 warning，也視為失敗
+      if (has_warning) {
+        result <- NULL
       }
-      return("lav" = lavaan::partable(res)$est )
+      
+      if (!is.null(result)) {
+        success <- TRUE
+        res <- lavaan::partable(result@pa)$est
+      } else {
+        if (!has_resample) {
+          # message("[bootstrap warning] resampling was needed in this bootstrap sample.")
+          has_resample <- TRUE  # 記住這一輪有重抽
+        }
+        ind_boot <- sample(1:nrow(fit@raw_data), nrow(fit@raw_data), replace = TRUE)
+      }
+      
+      try_count <- try_count + 1
     }
-  }  
+    
+    if (success) {
+      return(list(
+        lav = res,
+        resampled = has_resample,
+        try_count = try_count - 1  # 減掉最後一次失敗也加的那次
+      ))
+    } else {
+      message("[FINAL FAIL] silp could not converge after ", max_try, " tries of resample")
+      return(NULL)
+    }
+  }
   
-  b_silp = purrr::map(ind_boot, \(ind_boot) (bt_silp(ind_boot))
-                      ,.progress = progress)  
+  b_silp = purrr::map(ind_boot, ~bt_silp(.x, fit,max_try), .progress = TRUE)  
+
+
+  #remove NA
+  original_n <- length(b_silp)
+  valid_b <- purrr::compact(b_silp)
+  cleaned_n <- length(valid_b)
+  n_fail <- original_n - cleaned_n
+  if (n_fail > 0) {
+    message("There ", ifelse(n_fail == 1, "is", "are"), " ", 
+            n_fail, " failed bootstrap result", 
+            ifelse(n_fail == 1, "", "s"), ".")
+  }
   
-  b_est = do.call(cbind, b_silp)
   
+  #resampled count
+  n_resample <- sum(sapply(valid_b, function(x) x$resampled))
   
+  #total number of attempts
+  n_attempt <- sum(sapply(valid_b, function(x) x$try_count))
+  
+  #lavaan output
+  lav_list <- lapply(valid_b, function(x) x$lav)
+  b_est <- as.data.frame(t(do.call(rbind, lav_list)))
+  colnames(b_est) <- paste0("boot", seq_len(ncol(b_est)))
   b_est = cbind(lavaan::partable(fit@pa)[,2:12], b_est)
+
+
   fin = Sys.time() - sta 
   units(fin) = "secs"
   
   fit@boot = data.frame(b_est)
   fit@origine = as.data.frame(c(lavaan::parTable(fit@pa)$est))
   fit@time_resilp = as.numeric(fin)
-  
+  fit@tech = append(fit@tech, list("total attempt" = n_attempt, "resample count" = n_resample))
   return(fit)
 }
-
-
-
 
 
 

@@ -13,6 +13,7 @@
 #' @slot boot The results of `resilp` from R bootstrap samples.
 #' @slot origine The original `silp` estimation.
 #' @slot time_resilp The operation time for `resilp` (in seconds).
+#' @slot tech detail of `resilp` operation
 #' @exportClass Silp
 #' @exportMethod summary
 
@@ -21,7 +22,7 @@ setClass("Silp", slots = list(raw_model = "character", rapi_model = "character",
                               time = "numeric", npd = "logical", raw_data = "data.frame", fa = "lavaan", 
                               reliability = "data.frame", composite_data = "data.frame", pa = "lavaan",
                               boot = "data.frame", origine = "data.frame",
-                              time_resilp = "numeric"))
+                              time_resilp = "numeric", tech = "list") )
 
 setMethod("summary", signature("Silp"),function(object, method = "Bootstrap", sig_level = 0.05){ 
   print(summary(object@pa)) 
