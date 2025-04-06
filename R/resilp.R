@@ -132,7 +132,8 @@ resilp = function(fit, R = 2000, progress = T, max_try = 100){
   fit@boot = data.frame(b_est)
   fit@origine = as.data.frame(c(lavaan::parTable(fit@pa)$est))
   fit@time_resilp = as.numeric(fin)
-  fit@tech = append(fit@tech, list("total attempt" = n_attempt, "resample count" = n_resample))
+  
+  fit@tech = append(fit@tech, list("R" = R, "resample count" = n_attempt))
   return(fit)
 }
 
