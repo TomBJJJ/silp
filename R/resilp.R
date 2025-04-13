@@ -37,7 +37,6 @@
 
 
 
-
 # 
 # 
 # resilp = function(fit, R = 2000, progress = T, max_try = 100){
