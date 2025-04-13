@@ -4,14 +4,14 @@
 \alias{resilp}
 \title{resilp}
 \usage{
-resilp(fit, R = 2000, progress = TRUE, max_try = 100)
+resilp(fit, R = 2000, progress = T, max_try = 100)
 }
 \arguments{
 \item{fit}{A result object from \code{silp}.}
 
 \item{R}{Integer. The number of bootstrap samples. Default is 2000.}
 
-\item{progress}{Logical. Whether to display a progress bar. Default is \code{FALSE}.}
+\item{progress}{progress bar}
 
 \item{max_try}{Maximum resampling attempts per bootstrap sample.}
 }
@@ -24,10 +24,14 @@ Note: When using \code{silp} with the nearest positive definite matrix (npd = TR
 reliable inference.
 }
 \examples{
+if (requireNamespace("future", quietly = TRUE)) {
+  future::plan(future::multisession, workers = 2)
+}
+
 n_obs = 100
 corr = 0.1
 effect = 0.12
-ld = c(1,1,1,1)
+ld = c(1, 1, 1, 1)
 alp = 0.9
 data = generate_data(n_obs, corr, effect, ld, alp)
 model = "
@@ -37,5 +41,5 @@ model = "
   fy ~  fx + fz + fx:fz
 "
 fit = silp(model, data)
-resilp(fit, R = 10)
+resilp(fit, R = 100)
 }
