@@ -81,11 +81,15 @@ silp = function(model, data, center = "double", tau.eq = F, npd = F ,... ){
   
   
   #CFA model
-  MD = lavaan::cfa(str_c(o_eq, sep = "/n"), data,  bounds =  "pos.var")
-  Rel = semTools::compRelSEM(MD, tau.eq = tau.eq, return.df = T)
+  MD <- lavaan::cfa(str_c(o_eq, sep = "/n"), data,  bounds =  "pos.var")
+  ## Estimate reliability from CFA parameters.
+  ## Check which version of semTools is installed.
+  if (utils::packageDescription("semTools", fields = "Version") < "0.5-8") {
+    Rel <- semTools::compRelSEM(MD, tau.eq = tau.eq, return.df = T)
+  } else {
+    Rel <- semTools::compRelSEM(MD, tau.eq = tau.eq, simplify = -1L)
+  }
 
-  
-  
   #lv regression
   l_eq = eq[str_detect(eq, pattern = "~~") == FALSE &
               str_detect(eq, pattern = "=~") == FALSE]
